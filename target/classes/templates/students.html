@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Student Management Student</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" 
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" 
+		crossorigin="anonymous">
+	</head>
+	<body>
+		
+		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		  <!-- Brand -->
+		  <a class="navbar-brand" href="#">Student Management</a>
+
+		  <!-- Toggler/collapsibe Button -->
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <!-- Navbar links -->
+		  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link" th:href="@{/students}">All Students</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<h1>List Student</h1>	
+			</div>
+			<div>
+				<form th:action="@{/students}">
+					<a th:href = "@{/students/new}" class = "btn btn-primary btn-sm mb-3">Add Student</a>
+					Filter:<input type="text" name="keyword" th:value="${keyword}"/>
+					<input type="submit" value="Search" />
+					<input type="button" value="Clear" />
+				</form>
+			</div>
+			<br/>
+			<table class="table table-striped table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th>Student Name</th>
+						<th>Subject Name</th>
+						<th>Grade</th>
+						<th>Remarks</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each ="student: ${students}">
+						<td th:text = "${student.studentName}"></td>
+						<td th:text = "${student.subjectName}"></td>
+						<td th:text = "${student.grade}"></td>
+						<td th:text = "${student.remarks}"></td>
+						<td>
+							<a th:href="@{/students/edit/{studentKey}(studentKey=${student.studentKey})}"
+							class="btn btn-primary">Update</a>
+							
+
+							<a th:href="@{/students/{studentKey}(studentKey=${student.studentKey})}"
+							class="btn btn-danger">Delete</a>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+	</body>
+</html>
